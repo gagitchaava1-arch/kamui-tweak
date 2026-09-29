@@ -1,0 +1,23 @@
+name: Build Tweak
+on: [push]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          echo "$HOME/theos/bin" >> $GITHUB_PATH
+      - name: Install Dependencies
+        run: |
+          brew install ldid xz
+          brew install dpkg
+      - name: Build Tweak
+        run: make package
+      - name: Upload deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: tweak-deb
+          path: packages/*.deb
