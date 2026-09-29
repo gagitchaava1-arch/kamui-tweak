@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  ABC
+//
+//  Created by ABC on 2022/11/17.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+/// 非OC语言不能调用
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+/// 重构 __FILE__ 文件名格式
+#define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1) : __FILE__)
+
+/// 重构日志输出格式
+#define LYLog(format, ...) NSLog((@"[liuyang][文件名: %s] [函数名: %s] [行号: %d] 日志输出：" format "\n"), __FILENAME__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+#define YMPointerData(Name, Object) { \
+    LYLog("%s = %p / %ld", Name, (long *)Object, Object)\
+}
+
+#endif
+#endif /* PrefixHeader_pch */
