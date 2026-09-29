@@ -1,4 +1,3 @@
-export THEOS=/home/acer/theos/
 THEOS_DEVICE_IP = 192.168.1.4
 ARCHS = arm64
 DEBUG = 0
